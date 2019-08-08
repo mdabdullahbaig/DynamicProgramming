@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int count(int coin[], int n, int sum){
+  int i,j;
+  int l[n+1][sum+1];
+  for(i=0;i<=n;i++){
+    l[i][0] = 1;
+  }
+
+  for(i=1;i<=n;i++){
+    for(j=1;j<=sum;j++){
+      if(j >= coin[i-1]){
+        l[i][j] = l[i-1][j] + l[i][j-coin[i-1]];
+      } else{
+        l[i][j] = l[i-1][j];
+
+      }
+    }
+  }
+   
+  return l[n][sum];
+}
+
+int main() {
+int coin[] = {1, 2, 3};
+int n = sizeof(coin)/sizeof(coin[0]);
+int sum = 5;
+cout << count(coin, n, sum);
+
+return 0;
+}
